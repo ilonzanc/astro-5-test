@@ -1,6 +1,8 @@
-import * as contentful from "contentful";
+import { createClient } from "contentful";
 
-export const contentfulClient = contentful.createClient({
+console.log(import.meta.env.CONTENTFUL_PREVIEW_TOKEN);
+
+export const contentfulClient = createClient({
   space: import.meta.env.CONTENTFUL_SPACE_ID,
   accessToken: import.meta.env.DEV
     ? import.meta.env.CONTENTFUL_PREVIEW_TOKEN
