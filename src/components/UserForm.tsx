@@ -13,14 +13,13 @@ export default function UserForm() {
       body: formData,
     });
     const data = await response.json();
-    if (data.message) {
-      setResponseMessage(data.message);
-    }
 
     if (data.errors && Object.values(data.errors).includes("")) {
       setErrors(data.errors);
+      setResponseMessage("");
     } else {
       setErrors({});
+      setResponseMessage("User created");
     }
   };
 
