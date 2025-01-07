@@ -8,6 +8,8 @@ Expected parameter accessToken
 
 ### Solution
 
+It seems that the approach with `import.meta.env` did not work. I changed the `.env` file to `.envrc`, exported the variables and use process.env in the code
+
 ## Running
 
 ```Invalid hook call.
