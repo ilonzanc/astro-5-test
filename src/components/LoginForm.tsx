@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
+import { useUserStore } from "../lib/stores/useUserStore";
 
 export default function LoginForm() {
   const [responseMessage, setResponseMessage] = useState("");
@@ -7,6 +8,8 @@ export default function LoginForm() {
     email: "",
     password: "",
   });
+
+  const loginUser = useUserStore((state) => state.login);
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,7 +20,10 @@ export default function LoginForm() {
     });
     const data = await response.json();
 
-    if (data.errors && Object.values(data.errors).includes("")) {
+    if (
+      data.errors &&
+      Object.values(data.errors).some((v) => v !== undefined)
+    ) {
       setErrors(data.errors);
       setResponseMessage("");
     } else {
@@ -25,7 +31,8 @@ export default function LoginForm() {
         email: "",
         password: "",
       });
-      setResponseMessage("User created");
+      setResponseMessage("User logged in");
+      loginUser(data.authenticatedUser);
     }
   };
 

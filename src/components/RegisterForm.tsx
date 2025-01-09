@@ -18,7 +18,10 @@ export default function RegisterForm() {
     });
     const data = await response.json();
 
-    if (data.errors && Object.values(data.errors).includes("")) {
+    if (
+      data.errors &&
+      Object.values(data.errors).some((v) => v !== undefined)
+    ) {
       setErrors(data.errors);
       setResponseMessage("");
     } else {

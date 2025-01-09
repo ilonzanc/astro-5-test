@@ -18,7 +18,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
   const userService = new UserService();
 
-  const errors = { username: "", email: "", password: "" };
+  const errors: { username?: string; email?: string; password?: string } = {};
 
   try {
     if (await userService.isRegisteredUser(email)) {
@@ -36,8 +36,6 @@ export const POST: APIRoute = async ({ request }) => {
     email,
     password,
   });
-
-  console.log(createResponse);
 
   // Do something with the data, then return a success response
   return new Response(

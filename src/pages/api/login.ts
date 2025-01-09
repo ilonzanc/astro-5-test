@@ -1,6 +1,7 @@
 export const prerender = false; // Not needed in 'server' mode
 import type { APIRoute } from "astro";
 import { UserService } from "../../lib/services/UserService";
+import { useUserStore } from "../../lib/stores/useUserStore";
 
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData();
@@ -17,18 +18,20 @@ export const POST: APIRoute = async ({ request }) => {
   }
   const userService = new UserService();
 
-  const errors = { email: "", password: "" };
+  const errors: { email?: string; password?: string } = {};
 
   const response = await userService.loginUser({
     email,
     password,
   });
 
-  console.log("login response: ", response);
-
   // Do something with the data, then return a success response
   return new Response(
     JSON.stringify({
+      authenticatedUser: {
+        username: response?.fields.username,
+        email: response?.fields.email,
+      },
       formData: data,
       errors,
     }),
