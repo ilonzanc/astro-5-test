@@ -17,6 +17,7 @@ class ContentfulUserConnector {
         content_type: "user",
         "fields.email": userEmail,
       });
+      console.log(data);
       return data.items[0];
     } catch (error) {
       console.error(error);
