@@ -1,7 +1,7 @@
-import * as contentful from "contentful";
-import * as contentfulManagement from "contentful-management";
+import { createClient as deliveryCreateClient } from "contentful";
+import pkg from "contentful-management";
 
-const deliveryClient = contentful.createClient({
+const deliveryClient = deliveryCreateClient({
   space: process.env.CONTENTFUL_SPACE_ID as string,
   accessToken: process.env.DEV
     ? (process.env.CONTENTFUL_PREVIEW_TOKEN as string)
@@ -9,7 +9,9 @@ const deliveryClient = contentful.createClient({
   host: process.env.DEV ? "preview.contentful.com" : "cdn.contentful.com",
 });
 
-const managementBaseClient = contentfulManagement.createClient({
+const { createClient } = pkg;
+
+const managementBaseClient = createClient({
   accessToken: process.env.CONTENTFUL_CONTENT_MANAGEMENT_TOKEN as string,
 });
 

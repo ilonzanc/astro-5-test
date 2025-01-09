@@ -37,6 +37,8 @@ export const POST: APIRoute = async ({ request }) => {
     password,
   });
 
+  console.log(createResponse);
+
   // Do something with the data, then return a success response
   return new Response(
     JSON.stringify({
