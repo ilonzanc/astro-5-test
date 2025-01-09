@@ -31,6 +31,12 @@ export const POST: APIRoute = async ({ request }) => {
     }
   }
 
+  const createResponse = await userService.registerUser({
+    username,
+    email,
+    password,
+  });
+
   // Do something with the data, then return a success response
   return new Response(
     JSON.stringify({

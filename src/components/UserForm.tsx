@@ -3,7 +3,11 @@ import type { FormEvent } from "react";
 
 export default function UserForm() {
   const [responseMessage, setResponseMessage] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,7 +22,11 @@ export default function UserForm() {
       setErrors(data.errors);
       setResponseMessage("");
     } else {
-      setErrors({});
+      setErrors({
+        username: "",
+        email: "",
+        password: "",
+      });
       setResponseMessage("User created");
     }
   };

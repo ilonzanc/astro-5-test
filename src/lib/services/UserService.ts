@@ -15,7 +15,14 @@ class UserService {
     }
   }
 
-  registerUser() {}
+  async registerUser(userData: User) {
+    try {
+      const newUser = await this.contentfulConnector.createUser(userData);
+      return newUser;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
 
 export { UserService };

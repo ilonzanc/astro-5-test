@@ -1,15 +1,17 @@
 import type { ContentfulClientApi } from "contentful";
-import { contentfulClient } from "../contentful";
+import { deliveryClient, managementClient } from "../contentful";
 
 class ContentfulUserConnector {
-  readonly contentfulClient;
+  readonly deliveryClient;
+  readonly managementClient;
   constructor() {
-    this.contentfulClient = contentfulClient;
+    this.deliveryClient = deliveryClient;
+    this.managementClient = managementClient;
   }
 
   async getUserByEmail(userEmail: string) {
     try {
-      const data = await contentfulClient.getEntries({
+      const data = await this.deliveryClient.getEntries({
         limit: 1,
         content_type: "user",
         "fields.email": userEmail,
@@ -20,7 +22,23 @@ class ContentfulUserConnector {
     }
   }
 
-  createUser() {}
+  async createUser(userData: User) {
+    const managementClient = await this.managementClient();
+
+    const data = await managementClient.createEntry("user", {
+      fields: {
+        username: {
+          "en-US": userData.username,
+        },
+        email: {
+          "en-US": userData.email,
+        },
+        password: {
+          "en-US": userData.password,
+        },
+      },
+    });
+  }
 }
 
 export { ContentfulUserConnector };
