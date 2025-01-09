@@ -7,17 +7,12 @@ interface UserState {
   logout: () => void;
 }
 
-const defaultUser = {
-  username: "",
-  email: "",
-};
-
 const useUserStore = create<UserState>()(
   persist(
     (set, get) => ({
       authenticatedUser: undefined,
       login: (newUser) => set((state) => ({ authenticatedUser: newUser })),
-      logout: () => set({ authenticatedUser: defaultUser }),
+      logout: () => set({ authenticatedUser: undefined }),
     }),
     {
       name: "user-storage", // name of the item in the storage (must be unique)

@@ -1,16 +1,23 @@
 import { useUserStore } from "../lib/stores/useUserStore";
+import { Button } from "../lib/ui/Button";
 
 export default function AuthNav() {
   const authenticatedUser = useUserStore((state) => state.authenticatedUser);
   const logout = useUserStore((state) => state.logout);
 
-  return (
-    <div className="auth">
-      {authenticatedUser
-        ? `Logged in: ${authenticatedUser.username}`
-        : "Not logged in"}
+  const renderContent = () => {
+    if (authenticatedUser) {
+      return (
+        <>
+          Logged in: {authenticatedUser.username}{" "}
+          <Button as="button" onClick={() => logout()}>
+            Logout
+          </Button>
+        </>
+      );
+    }
+    return <a href="/login">Login</a>;
+  };
 
-      <button onClick={() => logout()}>Logout</button>
-    </div>
-  );
+  return <div className="auth">{renderContent()}</div>;
 }

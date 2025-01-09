@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "../lib/ui/Button";
 import type { FormEvent } from "react";
 
 export default function RegisterForm() {
@@ -98,9 +99,9 @@ export default function RegisterForm() {
         </div>
       </div>
 
-      <button className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+      <Button as="button" type="submit">
         Register
-      </button>
+      </Button>
       {responseMessage && <p>{responseMessage}</p>}
     </form>
   );

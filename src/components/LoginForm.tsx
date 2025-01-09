@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useUserStore } from "../lib/stores/useUserStore";
+import { Button } from "../lib/ui/Button";
 
 export default function LoginForm() {
   const [responseMessage, setResponseMessage] = useState("");
@@ -79,9 +80,9 @@ export default function LoginForm() {
         </div>
       </div>
 
-      <button className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+      <Button as="button" type="submit">
         Login
-      </button>
+      </Button>
       {responseMessage && <p>{responseMessage}</p>}
     </form>
   );
