@@ -2,7 +2,7 @@ import { useUserStore } from "../lib/stores/useUserStore";
 
 export default function AuthNav() {
   const authenticatedUser = useUserStore((state) => state.authenticatedUser);
-  const login = useUserStore((state) => state.login);
+  const logout = useUserStore((state) => state.logout);
 
   return (
     <div className="auth">
@@ -10,13 +10,7 @@ export default function AuthNav() {
         ? `Logged in: ${authenticatedUser.username}`
         : "Not logged in"}
 
-      <button
-        onClick={() =>
-          login({ username: "peepeepoopoo", email: "email@mail.be" })
-        }
-      >
-        Login
-      </button>
+      <button onClick={() => logout()}>Logout</button>
     </div>
   );
 }

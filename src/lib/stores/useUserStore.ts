@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface UserState {
   authenticatedUser?: Omit<User, "password">;
@@ -11,10 +12,18 @@ const defaultUser = {
   email: "",
 };
 
-const useUserStore = create<UserState>()((set) => ({
-  authenticatedUser: undefined,
-  login: (newUser) => set((state) => ({ authenticatedUser: newUser })),
-  logout: () => set({ authenticatedUser: defaultUser }),
-}));
+const useUserStore = create<UserState>()(
+  persist(
+    (set, get) => ({
+      authenticatedUser: undefined,
+      login: (newUser) => set((state) => ({ authenticatedUser: newUser })),
+      logout: () => set({ authenticatedUser: defaultUser }),
+    }),
+    {
+      name: "user-storage", // name of the item in the storage (must be unique)
+      storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
+    }
+  )
+);
 
 export { useUserStore };

@@ -1,7 +1,6 @@
 export const prerender = false; // Not needed in 'server' mode
 import type { APIRoute } from "astro";
 import { UserService } from "../../lib/services/UserService";
-import { useUserStore } from "../../lib/stores/useUserStore";
 
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData();
